@@ -4,7 +4,9 @@ const readdirp = require('readdirp');
 const _ = require("lodash");
 const path = require('path');
 const fs = require('fs');
-const directoryPath = path.join(__dirname,'..', 'ubismart');
+
+const args = process.argv.slice(2)
+const directoryPath = path.join(args[0]);
 
 var parsedFileList = [];
 var results = [];
@@ -132,7 +134,7 @@ var getImportedFn = function(name, parsedFile, parsedFilePath){
 };
 
 var generateDotFile = function(clusterList,callList){
-    var writer = fs.createWriteStream('test8.dot', {
+    var writer = fs.createWriteStream(args[1], {
 	flags: 'a' // 'a' means appending (old data will be preserved)
     });
     writer.write('digraph {\n')
@@ -256,7 +258,6 @@ readdirp(directoryPath,settings)
 		plop[name] = 1;
 	    }
 	})
-	console.log(plop);
 	var plip = {};
 	_.forEach(plop,(value,key)=>{
 	    if(plip.hasOwnProperty(value.toString())){
@@ -265,7 +266,6 @@ readdirp(directoryPath,settings)
 		plip[value.toString()] = 1;
 	    }
 	})
-	console.log(plip);
 	
 	var totalCount = 0;
 	var treatedCount = 0;
@@ -374,7 +374,6 @@ readdirp(directoryPath,settings)
 					    var newMatchs = matchFunction(fn.name,results);
 					    var index = objectArrayIncludes(newMatchs,'file',fn.path);
 					    if(index){
-						console.log(fn);
 						fn.found = true;
 						callList.push({
 						    file: fn.path,
@@ -400,7 +399,6 @@ readdirp(directoryPath,settings)
 		}
 	    });
 	});
-	console.log(unTreated);
 //	console.log(JSON.stringify(callPathList));
 	console.log("Treated",callList.length,"out of a total",totalCount);
 	generateDotFile(results,callList);
