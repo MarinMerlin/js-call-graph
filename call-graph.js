@@ -39,7 +39,7 @@ var objectArrayIncludes = function(array,name,property){
     var indexOfProp = null;
     _.forEach(array,(object,index)=>{
 	if(object.hasOwnProperty(name)){
-	    if(object[name] === property & !object.hasOwnProperty('exportFunction')){
+	    if(object[name] === property && !object.hasOwnProperty('exportFunction')){
 		indexOfProp = index;
 	    };
 	};
@@ -79,7 +79,7 @@ var getFnCallOrigin = function(ancestors){
     var i = 0;
     var result = null;
     while(i<ancestors.length){
-	if(ancestors[i].type === 'FunctionExpression' & !ancestors[i].hasOwnProperty('exportFunction')  & i>0){
+	if(ancestors[i].type === 'FunctionExpression' && !ancestors[i].hasOwnProperty('exportFunction') && i>0){
 	    var ancestor = ancestors[i-1];
 	    switch(ancestor.type){
 	    case "VariableDeclarator":
@@ -102,7 +102,7 @@ var objectHasProperty = function(json,path){
     var exists = true;
     var currentObj = json;
     var i = 0;
-    while(exists & i<path.length){
+    while(exists && i<path.length){
 	if(!currentObj.hasOwnProperty(path[i])){
 	    exists = false;
 	}else{
@@ -193,9 +193,9 @@ readdirp(directoryPath,settings)
 		var exportsFunction = false;
 		walk.simple(parsedFile,{
 		    AssignmentExpression(node){
-			if(node.hasOwnProperty('left') & node.hasOwnProperty('right')){
-			    if(node.right.type === 'FunctionExpression' & node.left.hasOwnProperty('object') & node.left.hasOwnProperty('property')){
-				if(node.left.object.name === 'module' & node.left.property.name === 'exports'){
+			if(node.hasOwnProperty('left') && node.hasOwnProperty('right')){
+			    if(node.right.type === 'FunctionExpression' && node.left.hasOwnProperty('object') && node.left.hasOwnProperty('property')){
+				if(node.left.object.name === 'module' && node.left.property.name === 'exports'){
 				    node.right.exportFunction = true;
 				    exportsFunction = true;
 				};
@@ -229,7 +229,7 @@ readdirp(directoryPath,settings)
 		});
 
 		//If no function is detected and the module.export is declared as a function then the file itself is the function name
-		if(fileInfo.functionList.length === 0 & exportsFunction){
+		if(fileInfo.functionList.length === 0 && exportsFunction){
 		    fileInfo.functionList.push(fileInfo.name);
 		};
 		
@@ -293,7 +293,7 @@ readdirp(directoryPath,settings)
 			//A filter to remove from the functions that ones that we know shouldn't be called (controllers are only called via routing and endpoints via external services)
 			if(matchs.length>0){
 			    matchs = _.filter(matchs,(match)=>{
-				return (!match.file.includes('/controllers/') & !match.file.includes('EndPoint.js'))
+				return (!match.file.includes('/controllers/') && !match.file.includes('EndPoint.js'))
 			    });
 			    totalCount++;
 
@@ -370,7 +370,7 @@ readdirp(directoryPath,settings)
 				if(!callPathList[indexOfProp].file){
 				    callPathList[indexOfProp].file = exactMatch.file;
 				    _.forEach(callPathList[indexOfProp].functions,(fn)=>{
-					if(fn.name !== exactMatch.name & !fn.found){
+					if(fn.name !== exactMatch.name && !fn.found){
 					    var newMatchs = matchFunction(fn.name,results);
 					    var index = objectArrayIncludes(newMatchs,'file',fn.path);
 					    if(index){
