@@ -1,0 +1,29 @@
+{
+  "name": "js-call-graph",
+  "version": "1.0.0",
+  "description": "Script which goes through a directory and outputs a dot file graphing all the function definitions in the project and all the calls to these functions",
+  "main": "call-graph.js",
+  "dependencies": {
+    "acorn": "^6.1.1",
+    "readdirp": "^3.0.1",
+    "lodash": "^4.17.11",
+    "acorn-walk": "^6.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mokopower/js-call-graph.git"
+  },
+  "keywords": [
+    "call-graph"
+  ],
+  "author": "Marin Merlin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mokopower/js-call-graph/issues"
+  },
+  "homepage": "https://github.com/mokopower/js-call-graph#readme"
+}
