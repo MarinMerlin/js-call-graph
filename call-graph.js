@@ -89,7 +89,7 @@ var getFnCallOrigin = function(ancestors){
 		result = ancestor.key.name;
 		break;
 	    default:
-		console.log("Not a handled function declaration");
+		console.log("Not a handled function declaration (" + ancestor.type + ")");
 	    };
 	    i = ancestors.length;
 	}
